@@ -124,7 +124,11 @@ CROSS_ARCH=		i686
 
 CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
 PKGNAMEPREFIX=	mingw-${PORT_ARCH}-
-PKGNAMEPREFIX=	-${THREADS_TYPE}-${EXEPTION_TYPE}
+.if ${EXEPTION_TYPE} == "dwarf2" && ( ${PORT_ARCH} == "multilib" || ${PORT_ARCH} == "x86_64" )
+PKGNAMESUFFIX=	-${THREADS_TYPE}-seh
+.else
+PKGNAMESUFFIX=	-${THREADS_TYPE}-${EXEPTION_TYPE}
+.endif
 .if ${PORT_TYPE} == "bootstrap"
 PKGNAMESUFFIX+=	-bootstrap
 .endif
