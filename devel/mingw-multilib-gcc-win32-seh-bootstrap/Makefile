@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 MAINTAINER=	takumiiinn@gmail.com
-COMMENT=	GCC 4.9 for MinGW-w64 x86_64 bootstrap
+COMMENT=	GCC 4.9 for MinGW-w64 bootstrap
 
 PORT_TYPE?=	bootstrap
 PORT_ARCH?=	multilib
