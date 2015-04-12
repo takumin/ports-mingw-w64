@@ -123,9 +123,10 @@ CROSS_ARCH=		i686
 .endif
 
 CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
-PKGNAMEPREFIX=	mingw-${PORT_TYPE}-
+PKGNAMEPREFIX=	mingw-${PORT_ARCH}-
+PKGNAMEPREFIX=	-${THREADS_TYPE}-${EXEPTION_TYPE}
 .if ${PORT_TYPE} == "bootstrap"
-PKGNAMESUFFIX=	-bootstrap
+PKGNAMESUFFIX+=	-bootstrap
 .endif
 
 pre-everything::
