@@ -27,9 +27,9 @@ LIB_DEPENDS+=	libgmp.so:${PORTSDIR}/math/gmp \
 		libmpc.so:${PORTSDIR}/math/mpc \
 		libisl.so:${PORTSDIR}/devel/isl \
 		libcloog-isl.so:${PORTSDIR}/math/cloog
-BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-binutils \
+BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-${PORT_ARCH}-binutils \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-headers
-RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-binutils \
+RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-${PORT_ARCH}-binutils \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-headers
 
 .if ${PORT_TYPE} == "all"
