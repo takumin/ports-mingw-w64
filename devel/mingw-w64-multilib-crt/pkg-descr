@@ -1,0 +1,5 @@
+Mingw-w64 delivers runtime, headers and libs for developing
+both 64 bit (x64) and 32 bit (x86) windows applications using
+GCC and other free software compilers.
+
+WWW: http://mingw-w64.sourceforge.net/

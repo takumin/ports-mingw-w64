@@ -1,0 +1,12 @@
+%%CROSS_TARGET%%/bin/libwinpthread-1.dll
+%%CROSS_TARGET%%/include/pthread.h
+%%CROSS_TARGET%%/include/pthread_compat.h
+%%CROSS_TARGET%%/include/pthread_signal.h
+%%CROSS_TARGET%%/include/pthread_time.h
+%%CROSS_TARGET%%/include/pthread_unistd.h
+%%CROSS_TARGET%%/include/sched.h
+%%CROSS_TARGET%%/include/semaphore.h
+%%CROSS_TARGET%%/lib/libpthread.a
+%%CROSS_TARGET%%/lib/libpthread.dll.a
+%%CROSS_TARGET%%/lib/libwinpthread.a
+%%CROSS_TARGET%%/lib/libwinpthread.dll.a
