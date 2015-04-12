@@ -26,8 +26,6 @@ BUILD_DEPENDS=	${LOCALBASE}/lib/libgmp.so:${PORTSDIR}/math/gmp \
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--target=${CROSS_TARGET} \
-		--enable-gold \
-		--enable-plugins \
 		--disable-nls
 
 .if ${PORT_TYPE} == "multilib"
