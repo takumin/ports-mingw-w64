@@ -20,15 +20,17 @@ WRKSRC_SUBDIR=	${PORTNAME}-libraries/${PORT_TYPE}
 WRKSRC_SUBDIR=	${PORTNAME}-${PORT_TYPE}
 .endif
 .if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
-CC:=		${CROSS_TARGET}-gcc-bootstrap
-CPP:=		${CROSS_TARGET}-cpp-bootstrap
-CXX:=		${CROSS_TARGET}-g++-bootstrap
-BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PORTNAME}-${CROSS_ARCH}-binutils \
-		${CROSS_TARGET}-gcc-bootstrap:${PORTSDIR}/devel/${PORTNAME}-${CROSS_ARCH}-gcc-bootstrap \
-		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PORTNAME}-${CROSS_ARCH}-headers
+BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PORTNAME}-${PORT_ARCH}-binutils \
+		${CROSS_TARGET}-gcc-bootstrap:${PORTSDIR}/devel/${PORTNAME}-${PORT_ARCH}-gcc-bootstrap \
+		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PORTNAME}-${PORT_ARCH}-headers
 . if ${PORT_TYPE} == "winpthreads"
-BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/mingw-w64-${CROSS_ARCH}-crt
+BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-crt
 . endif
+.endif
+.if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
+CC:=	${CROSS_TARGET}-gcc-bootstrap
+CPP:=	${CROSS_TARGET}-cpp-bootstrap
+CXX:=	${CROSS_TARGET}-g++-bootstrap
 .endif
 GNU_CONFIGURE=	yes
 GNU_CONFIGURE_PREFIX=	${PREFIX}/${CROSS_TARGET}
