@@ -10,8 +10,10 @@ DISTNAME=	${PORTNAME}-v${PORTVERSION}
 MAINTAINER?=	takumiiinn@gmail.com
 COMMENT?=	MinGW-w64 for headers and runtime
 
-PORT_TYPE?=	crt
+PORT_TYPE?=	all
 PORT_ARCH?=	multilib
+THREADS_TYPE?=	win32
+EXEPTION_TYPE?=	dwarf2
 
 USES=		gmake libtool tar:bzip2
 .if ${PORT_TYPE} == "winpthreads"
@@ -21,7 +23,7 @@ WRKSRC_SUBDIR=	${PORTNAME}-${PORT_TYPE}
 .endif
 .if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
 BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PORTNAME:C/-w64//}-${PORT_ARCH}-binutils \
-		${CROSS_TARGET}-gcc-bootstrap:${PORTSDIR}/devel/${PORTNAME:C/-w64//}-${PORT_ARCH}-gcc-bootstrap \
+		${CROSS_TARGET}-gcc-bootstrap:${PORTSDIR}/devel/${PORTNAME:C/-w64//}-${PORT_ARCH}-gcc-${THREADS_TYPE}-${EXEPTION_TYPE}-bootstrap \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PORTNAME}-${PORT_ARCH}-headers
 . if ${PORT_TYPE} == "winpthreads"
 BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-crt
