@@ -37,9 +37,11 @@ CONFIGURE_ARGS+=--host=${CROSS_TARGET}
 CONFIGURE_ARGS+=--enable-sdk=all --enable-secure-api
 .elif ${PORT_TYPE} == "crt"
 CONFIGURE_ARGS+=--enable-wildcard
-. if ${CROSS_ARCH} == "i686"
+. if ${PORT_ARCH} == "i686"
+CONFIGURE_ARGS+=--enable-lib32 --enable-lib64
+. elif ${PORT_ARCH} == "i686"
 CONFIGURE_ARGS+=--disable-lib64 --enable-lib32
-. elif ${CROSS_ARCH} == "x86_64"
+. elif ${PORT_ARCH} == "x86_64"
 CONFIGURE_ARGS+=--disable-lib32 --enable-lib64
 . endif
 .endif
