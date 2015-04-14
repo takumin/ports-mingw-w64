@@ -150,7 +150,7 @@ post-stage:
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man7/*
 	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin
 . for F in ${BINARIES}
-	${LN} -f ../../bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
+	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
 		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F${PKGNAMESUFFIX}
 . endfor
 
