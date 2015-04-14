@@ -90,7 +90,8 @@ CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/mingw-w64-bootstrap \
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/mingw-w64 \
 			--libexecdir=${PREFIX}/libexec/mingw-w64
 .endif
-CONFIGURE_ARGS+=	--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
+CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++" \
+			--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
 			--with-ld=${LOCALBASE}/bin/${CROSS_TARGET}-ld \
 			--with-gmp=${LOCALBASE} \
 			--with-mpfr=${LOCALBASE} \
