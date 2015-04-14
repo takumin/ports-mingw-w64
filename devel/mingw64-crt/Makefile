@@ -52,6 +52,7 @@ CONFIGURE_ARGS+=	--enable-lib32 \
 SSP_UNSAFE=	yes
 PLIST=		${.CURDIR}/../${PORTNAME}-crt/pkg-plist.${PORT_TYPE}
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
+PLIST_DIRS=	${CROSS_TARGET}/lib
 
 .include <bsd.port.pre.mk>
 
@@ -79,14 +80,11 @@ post-stage:
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-	cd ${STAGEDIR}${PREFIX}; ${LN} -fs mingw ${CROSS_TARGET}
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib
+	${LN} -s ${STAGEDIR}${PREFIX}/mingw ${STAGEDIR}${PREFIX}/${CROSS_TARGET}
 . if ${ARCH} == "amd64"
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib32
-	cd ${STAGEDIR}${PREFIX}; ${LN} -fs ${CROSS_TARGET}/lib64 lib
+	${LN} -s ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64 ${STAGEDIR}${PREFIX}/lib
 . else
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
-	cd ${STAGEDIR}${PREFIX}; ${LN} -fs ${CROSS_TARGET}/lib32 lib
+	${LN} -s ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib32 ${STAGEDIR}${PREFIX}/lib
 . endif
 .elif ${PORT_TYPE} == "crt"
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
