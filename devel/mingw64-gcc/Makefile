@@ -40,16 +40,16 @@ LIB_DEPENDS+=	libgmp.so:${PORTSDIR}/math/gmp \
 		libmpc.so:${PORTSDIR}/math/mpc \
 		libisl.so:${PORTSDIR}/devel/isl \
 		libcloog-isl.so:${PORTSDIR}/math/cloog
-BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}-binutils \
-		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}-headers
-RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}-binutils \
-		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}-headers
+BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
+		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}headers
+RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
+		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}headers
 
 .if ${PORT_TYPE} == "core"
-BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-crt \
-		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-winpthreads
-RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-crt \
-		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-winpthreads
+BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt \
+		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
+RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt \
+		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
 .endif
 
 .include <bsd.port.options.mk>
