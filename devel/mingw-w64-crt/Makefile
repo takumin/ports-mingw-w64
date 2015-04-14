@@ -2,16 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	mingw-w64
-PKGNAMESUFFIX?=	-crt
 PORTVERSION=	4.0.1
 CATEGORIES=	devel
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-release
+PKGNAMESUFFIX?=	-crt
 DISTNAME=	${PORTNAME}-v${PORTVERSION}
 
 MAINTAINER?=	takumiiinn@gmail.com
 COMMENT?=	MinGW-w64 for headers and runtime
 
-PORT_TYPE?=	crt
+PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
 
 USES=		gmake libtool tar:bzip2
 
