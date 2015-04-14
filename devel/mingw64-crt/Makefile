@@ -79,9 +79,9 @@ post-stage:
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-	${LN} -f mingw ${STAGEDIR}${PREFIX}/${CROSS_TARGET}
+	${LN} -f ${STAGEDIR}${PREFIX}/mingw ${STAGEDIR}${PREFIX}/${CROSS_TARGET}
 	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib
-	${LN} -f lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
+	${LN} -f ${STAGEDIR}${PREFIX}/lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
 .elif ${PORT_TYPE} == "crt"
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
