@@ -67,6 +67,7 @@ CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
 
 pre-configure:
 .if ${PORT_TYPE} == "crt"
+	${MKDIR} ${LOCALBASE}/${CROSS_TARGET}/include
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
@@ -83,6 +84,7 @@ post-stage:
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
+	${RMDIR} ${LOCALBASE}/${CROSS_TARGET}/include
 .endif
 
 .include <bsd.port.post.mk>
