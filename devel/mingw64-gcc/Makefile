@@ -96,8 +96,6 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 .if ${PORT_TYPE} == "bootstrap"
 CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
 			--program-suffix=${PKGNAMESUFFIX}
-.else
-CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++"
 .endif
 
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
