@@ -73,7 +73,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	../${SRCDIR:S/${WRKDIR}\///}/configure
 
 CONFIGURE_ARGS+=	--target=${CROSS_TARGET} \
-			--enable-targets=x86_64-w64-mingw32,i686-w64-mingw32
+			--enable-targets=all
 
 .if ${PORT_OPTIONS:MWIN32}
 CONFIGURE_ARGS+=	--enable-threads=win32
@@ -100,8 +100,8 @@ CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
 CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++"
 .endif
 
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
-			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
+			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
 			--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
 			--with-ld=${LOCALBASE}/bin/${CROSS_TARGET}-ld \
 			--with-gmp=${LOCALBASE} \
