@@ -15,7 +15,7 @@ LICENSE_COMB=	multi
 
 CPE_VENDOR=	gnu
 
-OPTIONS_DEFINE=		WIN32 POSIX SJLJ
+OPTIONS_DEFINE=		SJLJ
 
 OPTIONS_SINGLE=		THR
 OPTIONS_SINGLE_THR=	WIN32 POSIX
@@ -87,7 +87,6 @@ CONFIGURE_ARGS+=	--enable-sjlj-exceptions
 
 CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 			--enable-version-specific-runtime-libs \
-			--with-host-libstdcxx="-lstdc++ -lsupc++" \
 			--enable-fully-dynamic-string \
 			--enable-libstdcxx-time=yes \
 			--disable-bootstrap \
@@ -98,6 +97,7 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
 			--program-suffix=${PKGNAMESUFFIX}
 .else
+CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++"
 .endif
 
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
