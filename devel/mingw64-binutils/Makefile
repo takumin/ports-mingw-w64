@@ -26,6 +26,7 @@ BUILD_DEPENDS+=	${LOCALBASE}/lib/libgmp.so:${PORTSDIR}/math/gmp \
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--target=${CROSS_TARGET} \
 		--enable-targets=x86_64-w64-mingw32,i686-w64-mingw32 \
+		--enable-gold --enable-plugins \
 		--disable-nls
 
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
