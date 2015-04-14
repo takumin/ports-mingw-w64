@@ -50,7 +50,7 @@ CONFIGURE_ARGS+=	--enable-lib32 \
 .endif
 
 SSP_UNSAFE=	yes
-PLIST=		${.CURDIR}/../mingw-w64-crt/pkg-plist.${PORT_TYPE}
+PLIST=		${.CURDIR}/../${PORTNAME}-crt/pkg-plist.${PORT_TYPE}
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
 
 .include <bsd.port.pre.mk>
@@ -67,7 +67,6 @@ CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
 
 pre-configure:
 .if ${PORT_TYPE} == "crt"
-	${MKDIR} ${LOCALBASE}/${CROSS_TARGET}/include
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
 	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
@@ -84,7 +83,6 @@ post-stage:
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
-	${RMDIR} ${LOCALBASE}/${CROSS_TARGET}/include
 .endif
 
 .include <bsd.port.post.mk>

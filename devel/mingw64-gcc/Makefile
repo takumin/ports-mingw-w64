@@ -149,18 +149,10 @@ post-stage:
 	${RM} -rf ${STAGEDIR}${PREFIX}/include
 	${RM} -rf ${STAGEDIR}${PREFIX}/info
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man1/*
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin
-.if ${PORT_TYPE} == "bootstrap"
+	${RM} -f ${STAGEDIR}${PREFIX}/man/man7/*
 . for F in ${BINARIES}
 	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
 		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F${PKGNAMESUFFIX}
 . endfor
-.else
-. for F in ${BINARIES}
-	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F \
-		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F
-. endfor
-.endif
-	${RM} -f ${STAGEDIR}${PREFIX}/man/man7/*
 
 .include <bsd.port.post.mk>
