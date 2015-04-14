@@ -118,7 +118,7 @@ USE_LDCONFIG=		yes
 PLIST_SUB=		GCC_VERSION=${PORTVERSION} \
 			GNU_HOST=${CONFIGURE_TARGET} \
 			GNU_TARGET=${CROSS_TARGET}
-PLIST=			${.CURDIR}/../mingw-gcc/pkg-plist.${PORT_TYPE}
+PLIST=			${.CURDIR}/../${PKGNAMEPREFIX}gcc/pkg-plist.${PORT_TYPE}
 
 .if ${PORT_TYPE} == "core"
 INFO_PATH=		info/${CROSS_TARGET}-gcc
@@ -162,6 +162,5 @@ post-stage:
 . endfor
 .endif
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man7/*
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin
 
 .include <bsd.port.post.mk>
