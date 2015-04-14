@@ -144,14 +144,17 @@ pre-configure:
 	@${MKDIR} ${CONFIGURE_WRKSRC}
 
 post-stage:
+.if ${PORT_TYPE} == "bootstrap"
 	${RM} -rf ${STAGEDIR}${PREFIX}/include
 	${RM} -rf ${STAGEDIR}${PREFIX}/info
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man1/*
+	${RM} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-gcc-${PORTVERSION}
+.endif
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man7/*
 	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin
-. for F in ${BINARIES}
+.for F in ${BINARIES}
 	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
 		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F${PKGNAMESUFFIX}
-. endfor
+.endfor
 
 .include <bsd.port.post.mk>
