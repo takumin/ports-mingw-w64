@@ -4,7 +4,7 @@
 PORTNAME=	mingw64
 PORTVERSION=	4.0.1
 CATEGORIES=	devel
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-release
+MASTER_SITES=	SF/mingw-w64/mingw-w64/mingw-w64-release
 PKGNAMESUFFIX?=	-crt
 DISTNAME=	mingw-w64-v${PORTVERSION}
 
@@ -16,9 +16,9 @@ PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
 USES=		gmake libtool tar:bzip2
 
 .if ${PORT_TYPE} == "headers" || ${PORT_TYPE} == "crt"
-WRKSRC_SUBDIR=	${PORTNAME}-${PORT_TYPE}
+WRKSRC_SUBDIR=	mingw-w64-${PORT_TYPE}
 .else
-WRKSRC_SUBDIR=	${PORTNAME}-libraries/${PORT_TYPE}
+WRKSRC_SUBDIR=	mingw-w64-libraries/${PORT_TYPE}
 .endif
 
 .if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
