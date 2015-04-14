@@ -79,12 +79,12 @@ post-stage:
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-	${LN} -f ${STAGEDIR}${PREFIX}/${CROSS_TARGET} ${STAGEDIR}${PREFIX}/mingw
+	cd ${STAGEDIR}${PREFIX}; ${LN} -f mingw ${CROSS_TARGET}
 	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib32
 . if ${ARCH} == "amd64"
-	${LN} -f ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64 ${STAGEDIR}${PREFIX}/lib
+	cd ${STAGEDIR}${PREFIX}; ${LN} -f ${CROSS_TARGET}/lib64 lib
 . else
-	${LN} -f ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib32 ${STAGEDIR}${PREFIX}/lib
+	cd ${STAGEDIR}${PREFIX}; ${LN} -f ${CROSS_TARGET}/lib32 lib
 . endif
 .elif ${PORT_TYPE} == "crt"
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
