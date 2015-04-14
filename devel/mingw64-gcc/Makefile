@@ -149,6 +149,7 @@ post-stage:
 	${RM} -rf ${STAGEDIR}${PREFIX}/include
 	${RM} -rf ${STAGEDIR}${PREFIX}/info
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man1/*
+	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin
 .if ${PORT_TYPE} == "bootstrap"
 . for F in ${BINARIES}
 	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
