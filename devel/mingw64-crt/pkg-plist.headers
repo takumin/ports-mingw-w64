@@ -1461,3 +1461,7 @@
 %%CROSS_TARGET%%/include/ymath.h
 %%CROSS_TARGET%%/include/yvals.h
 %%CROSS_TARGET%%/include/zmouse.h
+%%CROSS_TARGET%%/lib
+%%CROSS_TARGET%%/lib32
+%%CROSS_TARGET%%/lib64
+mingw
