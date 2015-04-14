@@ -6,7 +6,7 @@ PORTVERSION=	4.0.1
 CATEGORIES=	devel
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-release
 PKGNAMESUFFIX?=	-crt
-DISTNAME=	${PORTNAME}-v${PORTVERSION}
+DISTNAME=	mingw-w64-v${PORTVERSION}
 
 MAINTAINER?=	takumiiinn@gmail.com
 COMMENT?=	MinGW-w64 for headers and runtime
