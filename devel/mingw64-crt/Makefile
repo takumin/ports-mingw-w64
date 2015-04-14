@@ -80,9 +80,9 @@ post-stage:
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-	${LN} -s ${STAGEDIR}${PREFIX}/mingw ${STAGEDIR}${PREFIX}/${CROSS_TARGET}
+	${LN} -s ${CROSS_TARGET} ${STAGEDIR}${PREFIX}/mingw
 	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib
-	${LN} -s ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64 ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib
+	${LN} -s lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
 .elif ${PORT_TYPE} == "crt"
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
