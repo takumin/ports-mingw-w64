@@ -1,7 +1,6 @@
 bin/%%GNU_TARGET%%-c++-bootstrap
 bin/%%GNU_TARGET%%-cpp-bootstrap
 bin/%%GNU_TARGET%%-g++-bootstrap
-bin/%%GNU_TARGET%%-gcc-%%GCC_VERSION%%
 bin/%%GNU_TARGET%%-gcc-ar-bootstrap
 bin/%%GNU_TARGET%%-gcc-bootstrap
 bin/%%GNU_TARGET%%-gcc-nm-bootstrap
