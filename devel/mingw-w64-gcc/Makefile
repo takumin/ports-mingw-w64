@@ -5,6 +5,8 @@ PORTNAME=	gcc
 PORTVERSION=	4.9.2
 CATEGORIES=	devel
 MASTER_SITES=	GCC
+PKGNAMEPREFIX=	mingw64-
+PKGNAMESUFFIX?=	-core
 
 MAINTAINER?=	takumiiinn@gmail.com
 COMMENT?=	GNU Compiler Collection 4.9 for MinGW-w64
@@ -12,12 +14,20 @@ COMMENT?=	GNU Compiler Collection 4.9 for MinGW-w64
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
 
-PORT_TYPE?=	all
-PORT_ARCH?=	multilib
-THREADS_TYPE?=	win32
-EXEPTION_TYPE?=	dwarf2
-
 CPE_VENDOR=	gnu
+
+OPTIONS_DEFINE=		WIN32 POSIX SJLJ
+
+OPTIONS_SINGLE=		THR
+OPTIONS_SINGLE_THR=	WIN32 POSIX
+
+OPTIONS_DEFAULT=	WIN32
+
+WIN32_DESC=		Win32 API Threads model
+POSIX_DESC=		POSIX Threads model
+SJLJ_DESC=		Exception handling for setjump/longjmp
+
+PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
 
 USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
 USE_PERL5=	build
@@ -27,19 +37,19 @@ LIB_DEPENDS+=	libgmp.so:${PORTSDIR}/math/gmp \
 		libmpc.so:${PORTSDIR}/math/mpc \
 		libisl.so:${PORTSDIR}/devel/isl \
 		libcloog-isl.so:${PORTSDIR}/math/cloog
-BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-${PORT_ARCH}-binutils \
-		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-headers
-RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/mingw-${PORT_ARCH}-binutils \
-		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-headers
+BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}-binutils \
+		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}-headers
+RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}-binutils \
+		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}-headers
 
-.if ${PORT_TYPE} == "all"
-BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-crt
-RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-crt
-. if ${THREADS_TYPE} == "posix"
-BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-winpthreads
-RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/mingw-w64-${PORT_ARCH}-winpthreads
-. endif
+.if ${PORT_TYPE} == "core"
+BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-crt \
+		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-winpthreads
+RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-crt \
+		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}-winpthreads
 .endif
+
+.include <bsd.port.options.mk>
 
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
 WRKSRC=		${WRKDIR}/build
@@ -58,22 +68,20 @@ UNIQUENAME=	${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 
 GNU_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	../${SRCDIR:S/${WRKDIR}\///}/configure
-CONFIGURE_ARGS+=	--target=${CROSS_TARGET}
-.if ${PORT_ARCH} == "multilib"
-CONFIGURE_ARGS+=	--enable-targets=x86_64-w64-mingw32,i686-w64-mingw32
-.else
-CONFIGURE_ARGS+=	--disable-multilib
-.endif
-.if ${THREADS_TYPE} == "win32"
+
+CONFIGURE_ARGS+=	--target=${CROSS_TARGET} \
+			--enable-targets=x86_64-w64-mingw32,i686-w64-mingw32
+
+.if ${PORT_OPTIONS:MWIN32}
 CONFIGURE_ARGS+=	--enable-threads=win32
-.elif ${THREADS_TYPE} == "posix"
+.elif ${PORT_OPTIONS:MPOSIX}
 CONFIGURE_ARGS+=	--enable-threads=posix
 .endif
-.if ${EXEPTION_TYPE} == "dwarf2"
-CONFIGURE_ARGS+=	--with-dwarf2
-.elif ${EXEPTION_TYPE} == "sjlj"
+
+.if ${PORT_OPTIONS:MSJLJ}
 CONFIGURE_ARGS+=	--enable-sjlj-exceptions
 .endif
+
 CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 			--enable-version-specific-runtime-libs \
 			--enable-fully-dynamic-string \
@@ -81,15 +89,17 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 			--disable-bootstrap \
 			--disable-nls \
 			--disable-win32-registry
+
 .if ${PORT_TYPE} == "bootstrap"
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/mingw-w64-bootstrap \
-			--libexecdir=${PREFIX}/libexec/mingw-w64-bootstrap \
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
+			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
 			--program-prefix=${CROSS_TARGET}- \
-			--program-suffix=-bootstrap
+			--program-suffix=${PKGNAMESUFFIX}
 .else
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/mingw-w64 \
-			--libexecdir=${PREFIX}/libexec/mingw-w64
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX} \
+			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}
 .endif
+
 CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++" \
 			--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
 			--with-ld=${LOCALBASE}/bin/${CROSS_TARGET}-ld \
@@ -107,8 +117,9 @@ USE_LDCONFIG=		yes
 PLIST_SUB=		GCC_VERSION=${PORTVERSION} \
 			GNU_HOST=${CONFIGURE_TARGET} \
 			GNU_TARGET=${CROSS_TARGET}
-PLIST=			${.CURDIR}/../mingw-gcc/pkg-plist.${PORT_ARCH}-${THREADS_TYPE}-${EXEPTION_TYPE}
-.if ${PORT_TYPE} == "bootstrap"
+PLIST=			${.CURDIR}/../mingw-gcc/pkg-plist.${PORT_TYPE}
+
+.if ${PORT_TYPE} == "core"
 INFO_PATH=		info/${CROSS_TARGET}-gcc
 INFO=			cpp cppinternals gcc gccinstall gccint libquadmath
 .endif
@@ -124,15 +135,6 @@ CROSS_ARCH=		i686
 .endif
 
 CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
-PKGNAMEPREFIX=	mingw-${PORT_ARCH}-
-.if ${EXEPTION_TYPE} == "dwarf2" && ( ${PORT_ARCH} == "multilib" || ${PORT_ARCH} == "x86_64" )
-PKGNAMESUFFIX=	-${THREADS_TYPE}-seh
-.else
-PKGNAMESUFFIX=	-${THREADS_TYPE}-${EXEPTION_TYPE}
-.endif
-.if ${PORT_TYPE} == "bootstrap"
-PKGNAMESUFFIX+=	-bootstrap
-.endif
 
 pre-everything::
 	@${ECHO_MSG} "Making GCC ${PORTVERSION} for Host:${CONFIGURE_TARGET} Target:${CROSS_TARGET} [${LANGUAGES}]"
@@ -143,13 +145,13 @@ pre-configure:
 	@${MKDIR} ${CONFIGURE_WRKSRC}
 
 post-stage:
-.if ${PORT_TYPE} == "bootstrap"
 	${RM} -rf ${STAGEDIR}${PREFIX}/include
 	${RM} -rf ${STAGEDIR}${PREFIX}/info
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man1/*
+.if ${PORT_TYPE} == "bootstrap"
 . for F in ${BINARIES}
-	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F-bootstrap \
-		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F-bootstrap
+	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F${PKGNAMESUFFIX} \
+		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F${PKGNAMESUFFIX}
 . endfor
 .else
 . for F in ${BINARIES}
