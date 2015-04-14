@@ -6,7 +6,7 @@ PORTVERSION=	2.25
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEWARE}
 MASTER_SITE_SUBDIR=	binutils/releases
-PKGNAMEPREFIX=	mingw-w64-
+PKGNAMEPREFIX=	mingw64-
 
 MAINTAINER=	takumiiinn@gmail.com
 COMMENT=	GNU binary tools for MinGW-w64

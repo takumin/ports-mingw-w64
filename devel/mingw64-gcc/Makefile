@@ -6,7 +6,6 @@ PORTVERSION=	4.9.2
 CATEGORIES=	devel
 MASTER_SITES=	GCC
 PKGNAMEPREFIX=	mingw64-
-PKGNAMESUFFIX?=	-core
 
 MAINTAINER?=	takumiiinn@gmail.com
 COMMENT?=	GNU Compiler Collection 4.9 for MinGW-w64
@@ -27,7 +26,11 @@ WIN32_DESC=		Win32 API Threads model
 POSIX_DESC=		POSIX Threads model
 SJLJ_DESC=		Exception handling for setjump/longjmp
 
+.ifndef PKGNAMESUFFIX
+PORT_TYPE=	core
+.else
 PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
+.endif
 
 USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
 USE_PERL5=	build
@@ -84,6 +87,7 @@ CONFIGURE_ARGS+=	--enable-sjlj-exceptions
 
 CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 			--enable-version-specific-runtime-libs \
+			--with-host-libstdcxx="-lstdc++ -lsupc++" \
 			--enable-fully-dynamic-string \
 			--enable-libstdcxx-time=yes \
 			--disable-bootstrap \
@@ -91,16 +95,13 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 			--disable-win32-registry
 
 .if ${PORT_TYPE} == "bootstrap"
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
-			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
-			--program-prefix=${CROSS_TARGET}- \
+CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
 			--program-suffix=${PKGNAMESUFFIX}
 .else
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX} \
-			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}
 .endif
 
-CONFIGURE_ARGS+=	--with-host-libstdcxx="-lstdc++ -lsupc++" \
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
+			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX} \
 			--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
 			--with-ld=${LOCALBASE}/bin/${CROSS_TARGET}-ld \
 			--with-gmp=${LOCALBASE} \

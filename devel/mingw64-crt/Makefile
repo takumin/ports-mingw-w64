@@ -1,7 +1,7 @@
 # Created by: Takumi Takahashi <takumiiinn@gmail.com>
 # $FreeBSD$
 
-PORTNAME=	mingw-w64
+PORTNAME=	mingw64
 PORTVERSION=	4.0.1
 CATEGORIES=	devel
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-release
@@ -15,10 +15,10 @@ PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
 
 USES=		gmake libtool tar:bzip2
 
-.if ${PORT_TYPE} == "winpthreads"
-WRKSRC_SUBDIR=	${PORTNAME}-libraries/${PORT_TYPE}
-.else
+.if ${PORT_TYPE} == "headers" || ${PORT_TYPE} == "crt"
 WRKSRC_SUBDIR=	${PORTNAME}-${PORT_TYPE}
+.else
+WRKSRC_SUBDIR=	${PORTNAME}-libraries/${PORT_TYPE}
 .endif
 
 .if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
@@ -57,10 +57,10 @@ PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
 
 .if ${ARCH} == "amd64"
 CONFIGURE_TARGET=	x86_64-portbld-${OPSYS:tl}${OSREL}
-CROSS_ARCH=	x86_64
+CROSS_ARCH=		x86_64
 .else
 CONFIGURE_TARGET=	${ARCH}-portbld-${OPSYS:tl}${OSREL}
-CROSS_ARCH=	i686
+CROSS_ARCH=		i686
 .endif
 
 CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
