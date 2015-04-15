@@ -46,13 +46,16 @@ RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}headers
 
 .if ${PORT_TYPE} == "core"
-BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt \
-		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
-RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt \
-		${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
+BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt
+RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}crt
 .endif
 
 .include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MPOSIX}
+BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
+RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
+.endif
 
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
 WRKSRC=		${WRKDIR}/build
