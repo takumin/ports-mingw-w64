@@ -58,9 +58,11 @@ PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
 
 .if ${ARCH} == "amd64"
 CONFIGURE_TARGET=	x86_64-portbld-${OPSYS:tl}${OSREL}
+CONFIGURE_ARGS+=	--enable-lib64 --disable-lib32
 CROSS_ARCH=		x86_64
 .else
 CONFIGURE_TARGET=	${ARCH}-portbld-${OPSYS:tl}${OSREL}
+CONFIGURE_ARGS+=	--enable-lib32 --disable-lib64
 CROSS_ARCH=		i686
 .endif
 
