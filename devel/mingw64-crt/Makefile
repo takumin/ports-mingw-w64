@@ -34,9 +34,13 @@ BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/
 .endif
 
 .if ! ${PORT_TYPE} == "headers"
-CC:=	${CROSS_TARGET}-gcc-bootstrap
-CPP:=	${CROSS_TARGET}-cpp-bootstrap
-CXX:=	${CROSS_TARGET}-g++-bootstrap
+CC:=		${CROSS_TARGET}-gcc-bootstrap
+CPP:=		${CROSS_TARGET}-cpp-bootstrap
+CXX:=		${CROSS_TARGET}-g++-bootstrap
+_GCC_RUNTIME:=	${LOCALBASE}/lib/${PORTNAME}-bootstrap
+CFLAGS+=	-Wl,-rpath=${_GCC_RUNTIME}
+CXXFLAGS+=	-Wl,-rpath=${_GCC_RUNTIME}
+LDFLAGS+=	-Wl,-rpath=${_GCC_RUNTIME} -L${_GCC_RUNTIME}
 .endif
 
 GNU_CONFIGURE=		yes
