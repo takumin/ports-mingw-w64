@@ -1461,5 +1461,3 @@
 %%CROSS_TARGET%%/include/ymath.h
 %%CROSS_TARGET%%/include/yvals.h
 %%CROSS_TARGET%%/include/zmouse.h
-%%CROSS_TARGET%%/lib64
-mingw

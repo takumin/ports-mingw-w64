@@ -17,8 +17,11 @@ USES=		gmake libtool tar:bzip2
 
 .if ${PORT_TYPE} == "headers" || ${PORT_TYPE} == "crt"
 WRKSRC_SUBDIR=	mingw-w64-${PORT_TYPE}
-.else
+.elif ${PORT_TYPE} == "libmangle" || ${PORT_TYPE} == "pseh" || \
+	${PORT_TYPE} == "winpthreads" || ${PORT_TYPE} == "winstorecompat"
 WRKSRC_SUBDIR=	mingw-w64-libraries/${PORT_TYPE}
+.else
+WRKSRC_SUBDIR=	mingw-w64-tools/${PORT_TYPE}
 .endif
 
 .if ${PORT_TYPE} == "crt" || ${PORT_TYPE} == "winpthreads"
@@ -44,15 +47,12 @@ CONFIGURE_ARGS+=	--host=${CROSS_TARGET}
 CONFIGURE_ARGS+=	--enable-sdk=all \
 			--enable-secure-api
 .elif ${PORT_TYPE} == "crt"
-CONFIGURE_ARGS+=	--enable-lib32 \
-			--enable-lib64 \
-			--enable-wildcard
+CONFIGURE_ARGS+=	--enable-wildcard
 .endif
 
 SSP_UNSAFE=	yes
 PLIST=		${.CURDIR}/../${PORTNAME}-crt/pkg-plist.${PORT_TYPE}
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
-PLIST_DIRS=	${CROSS_TARGET}/lib
 
 .include <bsd.port.pre.mk>
 
@@ -83,9 +83,6 @@ post-stage:
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
 	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-	${LN} -s ${CROSS_TARGET} ${STAGEDIR}${PREFIX}/mingw
-	${MKDIR} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib
-	${LN} -s lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
 .elif ${PORT_TYPE} == "crt"
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
 	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
