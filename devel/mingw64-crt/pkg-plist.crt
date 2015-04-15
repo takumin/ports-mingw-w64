@@ -1687,3 +1687,5 @@
 %%CROSS_TARGET%%/lib32/libxinput1_4.a
 %%CROSS_TARGET%%/lib32/libxinput9_1_0.a
 %%CROSS_TARGET%%/lib32/txtmode.o
+%%CROSS_TARGET%%/lib64
+mingw

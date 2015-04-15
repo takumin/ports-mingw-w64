@@ -78,7 +78,7 @@ post-configure:
 	${REINPLACE_CMD} -e 's@^RCFLAGS.*$$@RCFLAGS = --preprocessor=${CROSS_TARGET}-cpp-bootstrap@' ${WRKSRC}/Makefile
 .endif
 
-#post-stage:
+post-stage:
 #.if ${PORT_TYPE} == "headers"
 #	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
 #	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
@@ -88,5 +88,9 @@ post-configure:
 #	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
 #	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
 #.endif
+.if ${PORT_TYPE} == "crt"
+	${LN} -s ${CROSS_TARGET} ${STAGEDIR}${PREFIX}/mingw
+	${LN} -s lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
+.endif
 
 .include <bsd.port.post.mk>
