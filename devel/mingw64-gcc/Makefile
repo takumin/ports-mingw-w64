@@ -154,11 +154,11 @@ post-stage:
 	${RM} -rf ${STAGEDIR}${PREFIX}/info
 	${RM} -f ${STAGEDIR}${PREFIX}/man/man1/*
 	${RM} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-gcc-${PORTVERSION}
-.else
-. for F in ${BINARIES}
-	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F \
-		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F
-. endfor
+#.else
+#. for F in ${BINARIES}
+#	${LN} -f ${STAGEDIR}${PREFIX}/bin/${CROSS_TARGET}-$F \
+#		${STAGEDIR}${PREFIX}/${CROSS_TARGET}/bin/$F
+#. endfor
 .endif
 
 .include <bsd.port.post.mk>
