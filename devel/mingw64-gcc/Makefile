@@ -98,7 +98,8 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGUAGES} \
 
 .if ${PORT_TYPE} == "bootstrap"
 CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
-			--program-suffix=${PKGNAMESUFFIX}
+			--program-suffix=${PKGNAMESUFFIX} \
+			--without-headers
 .endif
 
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
