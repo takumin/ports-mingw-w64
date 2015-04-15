@@ -7,13 +7,7 @@ bin/%%GNU_TARGET%%-gcc-ar
 bin/%%GNU_TARGET%%-gcc-nm
 bin/%%GNU_TARGET%%-gcc-ranlib
 bin/%%GNU_TARGET%%-gcov
-info/%%GNU_TARGET%%-gcc/cpp.info
-info/%%GNU_TARGET%%-gcc/cppinternals.info
-info/%%GNU_TARGET%%-gcc/dir
-info/%%GNU_TARGET%%-gcc/gcc.info
-info/%%GNU_TARGET%%-gcc/gccinstall.info
-info/%%GNU_TARGET%%-gcc/gccint.info
-info/%%GNU_TARGET%%-gcc/libquadmath.info
+@comment info/%%GNU_TARGET%%-gcc/dir
 lib/mingw64-/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/crtfastmath.o
 lib/mingw64-/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/include-fixed/README
 lib/mingw64-/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/include-fixed/limits.h
