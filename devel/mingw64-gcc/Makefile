@@ -102,8 +102,8 @@ CONFIGURE_ARGS+=	--program-prefix=${CROSS_TARGET}- \
 			--without-headers
 .endif
 
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
-			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX}${PKGNAMESUFFIX:S/-//} \
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX:S/-//}${PKGNAMESUFFIX} \
+			--libexecdir=${PREFIX}/libexec/${PKGNAMEPREFIX:S/-//}${PKGNAMESUFFIX} \
 			--with-as=${LOCALBASE}/bin/${CROSS_TARGET}-as \
 			--with-ld=${LOCALBASE}/bin/${CROSS_TARGET}-ld \
 			--with-gmp=${LOCALBASE} \
