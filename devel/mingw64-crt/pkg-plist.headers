@@ -1002,6 +1002,9 @@
 %%CROSS_TARGET%%/include/pshpack8.h
 %%CROSS_TARGET%%/include/pshpck16.h
 %%CROSS_TARGET%%/include/pstore.h
+%%CROSS_TARGET%%/include/pthread_signal.h
+%%CROSS_TARGET%%/include/pthread_time.h
+%%CROSS_TARGET%%/include/pthread_unistd.h
 %%CROSS_TARGET%%/include/qedit.h
 %%CROSS_TARGET%%/include/qedit.idl
 %%CROSS_TARGET%%/include/qmgr.h
