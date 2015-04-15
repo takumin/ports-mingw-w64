@@ -31,6 +31,7 @@ CONFIGURE_ARGS+=--target=${CROSS_TARGET} \
 		--with-mpfr=${LOCALBASE} \
 		--with-system-zlib \
 		--with-sysroot=/ \
+		--disable-multilib \
 		--disable-nls
 
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
