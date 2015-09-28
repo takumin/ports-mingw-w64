@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	binutils
-PORTVERSION=	2.25
+PORTVERSION=	2.25.1
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_SOURCEWARE}
-MASTER_SITE_SUBDIR=	binutils/releases
+MASTER_SITES=	SOURCEWARE/binutils/releases
 PKGNAMEPREFIX=	mingw64-
 
 MAINTAINER=	takumiiinn@gmail.com
@@ -27,12 +26,16 @@ GNU_CONFIGURE=	yes
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS+=--target=${CROSS_TARGET} \
+		--enable-targets=x86_64-w64-mingw32,i686-w64-mingw32 \
+		--enable-gold \
+		--enable-plugins \
+		--disable-nls \
+		--disable-shared \
+		--disable-werror \
 		--with-gmp=${LOCALBASE} \
 		--with-mpfr=${LOCALBASE} \
-		--with-system-zlib \
 		--with-sysroot=/ \
-		--disable-multilib \
-		--disable-nls
+		--with-system-zlib
 
 PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
 INFO_PATH=	info/${CROSS_TARGET}
