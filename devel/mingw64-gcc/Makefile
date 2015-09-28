@@ -38,8 +38,7 @@ USE_PERL5=	build
 LIB_DEPENDS+=	libgmp.so:${PORTSDIR}/math/gmp \
 		libmpfr.so:${PORTSDIR}/math/mpfr \
 		libmpc.so:${PORTSDIR}/math/mpc \
-		libisl.so:${PORTSDIR}/devel/isl \
-		libcloog-isl.so:${PORTSDIR}/math/cloog
+		libisl.so:${PORTSDIR}/devel/isl
 BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}headers
 RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
@@ -76,7 +75,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	../${SRCDIR:S/${WRKDIR}\///}/configure
 
 CONFIGURE_ARGS+=	--target=${CROSS_TARGET} \
-			--disable-multilib
+			--enable-targets=all
 
 .if ${PORT_OPTIONS:MWIN32}
 CONFIGURE_ARGS+=	--enable-threads=win32
@@ -109,9 +108,7 @@ CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX:S/-//}${PKGNAMESUFFIX} \
 			--with-gmp=${LOCALBASE} \
 			--with-mpfr=${LOCALBASE} \
 			--with-mpc=${LOCALBASE} \
-			--disable-isl-version-check \
 			--with-isl=${LOCALBASE} \
-			--with-cloog=${LOCALBASE} \
 			${ICONV_CONFIGURE_ARG} \
 			--with-pkgversion="FreeBSD Ports Collection for MinGW-w64" \
 			--with-system-zlib
