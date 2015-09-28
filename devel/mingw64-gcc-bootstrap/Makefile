@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 MAINTAINER=	takumiiinn@gmail.com
-COMMENT=	GCC 4.9 for MinGW-w64 bootstrap
+COMMENT?=	GNU Compiler Collection for MinGW-w64
 
 PKGNAMESUFFIX?=	-bootstrap
 MASTERDIR=	${.CURDIR}/../mingw64-gcc

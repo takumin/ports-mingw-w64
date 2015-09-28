@@ -8,7 +8,7 @@ MASTER_SITES=	GCC
 PKGNAMEPREFIX=	mingw64-
 
 MAINTAINER?=	takumiiinn@gmail.com
-COMMENT?=	GNU Compiler Collection 4.9 for MinGW-w64
+COMMENT?=	GNU Compiler Collection for MinGW-w64
 
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
