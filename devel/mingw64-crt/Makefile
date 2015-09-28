@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mingw64
-PORTVERSION=	4.0.1
+PORTVERSION=	4.0.4
 CATEGORIES=	devel
 MASTER_SITES=	SF/mingw-w64/mingw-w64/mingw-w64-release
 PKGNAMESUFFIX?=	-crt
