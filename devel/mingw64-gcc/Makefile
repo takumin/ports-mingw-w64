@@ -68,7 +68,6 @@ BINARIES=	c++ cpp g++ gcc gcov
 .if ${PORT_TYPE} == "bootstrap"
 ALL_TARGET=	all-gcc
 INSTALL_TARGET=	install-gcc
-UNIQUENAME=	${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 .endif
 
 GNU_CONFIGURE=		yes
