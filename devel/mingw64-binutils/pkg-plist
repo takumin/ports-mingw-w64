@@ -18,7 +18,12 @@ bin/%%CROSS_TARGET%%-strings
 bin/%%CROSS_TARGET%%-strip
 bin/%%CROSS_TARGET%%-windmc
 bin/%%CROSS_TARGET%%-windres
-@comment info/%%CROSS_TARGET%%/dir
+info/%%CROSS_TARGET%%/as.info
+info/%%CROSS_TARGET%%/bfd.info
+info/%%CROSS_TARGET%%/binutils.info
+info/%%CROSS_TARGET%%/dir
+info/%%CROSS_TARGET%%/gprof.info
+info/%%CROSS_TARGET%%/ld.info
 man/man1/%%CROSS_TARGET%%-addr2line.1.gz
 man/man1/%%CROSS_TARGET%%-ar.1.gz
 man/man1/%%CROSS_TARGET%%-as.1.gz
