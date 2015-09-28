@@ -1,0 +1,11 @@
+--- ld/configure.orig	2015-07-21 13:42:58 UTC
++++ ld/configure
+@@ -15524,7 +15524,7 @@ esac
+ # Set the 'development' global.
+ . $srcdir/../bfd/development.sh
+ 
+-GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes"
++GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wno-uninitialized"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ __GNUC__

@@ -1,6 +1,6 @@
---- bfd/elfxx-sparc.c.orig	2013-11-08 11:13:48.000000000 +0100
-+++ bfd/elfxx-sparc.c	2014-10-10 16:30:23.316125000 +0200
-@@ -2942,12 +2942,14 @@
+--- bfd/elfxx-sparc.c.orig	2015-07-21 08:20:58 UTC
++++ bfd/elfxx-sparc.c
+@@ -2942,12 +2942,14 @@ _bfd_sparc_elf_relocate_section (bfd *ou
    Elf_Internal_Rela *relend;
    int num_relocs;
    bfd_boolean is_vxworks_tls;
@@ -15,7 +15,7 @@
  
    if (elf_hash_table (info)->hgot == NULL)
      got_base = 0;
-@@ -3528,6 +3530,8 @@
+@@ -3528,6 +3530,8 @@ _bfd_sparc_elf_relocate_section (bfd *ou
  			      bfd_set_error (bfd_error_bad_value);
  			      return FALSE;
  			    }

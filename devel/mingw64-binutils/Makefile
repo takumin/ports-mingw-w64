@@ -18,7 +18,7 @@ LICENSE_FILE_LGPL3=	${WRKSRC}/COPYING3.LIB
 
 CPE_VENDOR=	gnu
 
-USES=		cpe bison gmake libtool tar:bzip2 compiler:env
+USES=		bison compiler:env cpe gmake libtool tar:bzip2
 BUILD_DEPENDS+=	${LOCALBASE}/lib/libgmp.so:${PORTSDIR}/math/gmp \
 		${LOCALBASE}/lib/libmpfr.so:${PORTSDIR}/math/mpfr
 

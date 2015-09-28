@@ -1,0 +1,11 @@
+--- gas/configure.orig	2015-07-21 13:42:55 UTC
++++ gas/configure
+@@ -11668,7 +11668,7 @@ using_cgen=no
+ # Set the 'development' global.
+ . $srcdir/../bfd/development.sh
+ 
+-GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes"
++GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wno-unused-function"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ __GNUC__

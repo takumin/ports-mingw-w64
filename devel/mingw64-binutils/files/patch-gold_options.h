@@ -1,6 +1,6 @@
---- gold/options.h.orig	2013-12-13 18:39:11.252052912 +0100
-+++ gold/options.h	2013-12-13 18:41:04.363051429 +0100
-@@ -716,9 +716,9 @@
+--- gold/options.h.orig	2014-10-14 07:32:04 UTC
++++ gold/options.h
+@@ -715,9 +715,9 @@ class General_options
  	      N_("Output cross reference table"),
  	      N_("Do not output cross reference table"));
  

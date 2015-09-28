@@ -1,0 +1,11 @@
+--- bfd/configure.orig	2015-07-21 13:42:55 UTC
++++ bfd/configure
+@@ -12246,7 +12246,7 @@ fi
+ # Set the 'development' global.
+ . $srcdir/../bfd/development.sh
+ 
+-GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes"
++GCC_WARN_CFLAGS="-W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wno-unused-function"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ __GNUC__
