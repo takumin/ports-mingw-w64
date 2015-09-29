@@ -52,9 +52,11 @@ RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MPOSIX}
+.if ${PORT_TYPE} == "core"
+.  if ${PORT_OPTIONS:MPOSIX}
 BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
 RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
+.  endif
 .endif
 
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
