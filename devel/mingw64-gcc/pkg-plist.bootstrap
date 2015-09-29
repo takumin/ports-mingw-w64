@@ -143,7 +143,6 @@ lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/i386-opts.h
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/i386-protos.h
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/i386.h
-lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/mingw-pthread.h
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/mingw-stdint.h
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/mingw-w64.h
 lib/mingw64-bootstrap/gcc/%%GNU_TARGET%%/%%GCC_VERSION%%/plugin/include/config/i386/mingw32.h
