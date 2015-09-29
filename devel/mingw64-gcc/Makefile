@@ -7,14 +7,21 @@ CATEGORIES=	devel
 MASTER_SITES=	GCC
 PKGNAMEPREFIX=	mingw64-
 
-MAINTAINER?=	takumiiinn@gmail.com
-COMMENT?=	GNU Compiler Collection for MinGW-w64
+MAINTAINER=	takumiiinn@gmail.com
+COMMENT=	GNU Compiler Collection for MinGW-w64
 
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
 
 CPE_VENDOR=	gnu
 
+.ifndef PKGNAMESUFFIX
+PORT_TYPE=	core
+.else
+PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
+.endif
+
+.if ${PORT_TYPE} == "core"
 OPTIONS_DEFINE=		SJLJ
 
 OPTIONS_SINGLE=		THR
@@ -25,11 +32,6 @@ OPTIONS_DEFAULT=	WIN32
 WIN32_DESC=		Win32 API Threads model
 POSIX_DESC=		POSIX Threads model
 SJLJ_DESC=		Exception handling for setjump/longjmp
-
-.ifndef PKGNAMESUFFIX
-PORT_TYPE=	core
-.else
-PORT_TYPE=	${PKGNAMESUFFIX:S/-//}
 .endif
 
 USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
@@ -51,11 +53,9 @@ RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libmingw32.a:${PORTSDIR}/devel/${
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_TYPE} == "core"
-.  if ${PORT_OPTIONS:MPOSIX}
+.if ${PORT_OPTIONS:MPOSIX}
 BUILD_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
 RUN_DEPENDS+=	${LOCALBASE}/${CROSS_TARGET}/lib/libpthread.a:${PORTSDIR}/devel/${PKGNAMEPREFIX}winpthreads
-.  endif
 .endif
 
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
