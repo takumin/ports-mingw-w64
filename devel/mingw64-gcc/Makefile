@@ -38,8 +38,7 @@ USE_PERL5=	build
 LIB_DEPENDS+=	libgmp.so:${PORTSDIR}/math/gmp \
 		libmpfr.so:${PORTSDIR}/math/mpfr \
 		libmpc.so:${PORTSDIR}/math/mpc \
-		libisl.so:${PORTSDIR}/devel/isl \
-		libcloog-isl.so:${PORTSDIR}/math/cloog
+		libisl.so:${PORTSDIR}/devel/isl
 BUILD_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
 		${LOCALBASE}/${CROSS_TARGET}/include/_mingw.h:${PORTSDIR}/devel/${PKGNAMEPREFIX}headers
 RUN_DEPENDS+=	${CROSS_TARGET}-as:${PORTSDIR}/devel/${PKGNAMEPREFIX}binutils \
@@ -111,7 +110,6 @@ CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/${PKGNAMEPREFIX:S/-//}${PKGNAMESUFFIX} \
 			--with-mpfr=${LOCALBASE} \
 			--with-mpc=${LOCALBASE} \
 			--with-isl=${LOCALBASE} \
-			--with-cloog=${LOCALBASE} \
 			${ICONV_CONFIGURE_ARG} \
 			--with-pkgversion="FreeBSD Ports Collection for MinGW-w64" \
 			--with-system-zlib
