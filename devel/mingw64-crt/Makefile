@@ -45,7 +45,8 @@ LDFLAGS+=	-Wl,-rpath=${_GCC_RUNTIME} -L${_GCC_RUNTIME}
 
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_PREFIX=	${PREFIX}/${CROSS_TARGET}
-CONFIGURE_ARGS+=	--host=${CROSS_TARGET}
+CONFIGURE_ARGS+=	--host=${CROSS_TARGET} \
+			--enable-lib64 --enable-lib32
 
 .if ${PORT_TYPE} == "headers"
 CONFIGURE_ARGS+=	--enable-sdk=all \
@@ -62,41 +63,17 @@ PLIST_SUB=	CROSS_TARGET=${CROSS_TARGET}
 
 .if ${ARCH} == "amd64"
 CONFIGURE_TARGET=	x86_64-portbld-${OPSYS:tl}${OSREL}
-CONFIGURE_ARGS+=	--enable-lib64 --disable-lib32
 CROSS_ARCH=		x86_64
 .else
 CONFIGURE_TARGET=	${ARCH}-portbld-${OPSYS:tl}${OSREL}
-CONFIGURE_ARGS+=	--enable-lib32 --disable-lib64
 CROSS_ARCH=		i686
 .endif
 
 CROSS_TARGET=	${CROSS_ARCH}-w64-mingw32
 
-#pre-configure:
-#.if ${PORT_TYPE} == "crt"
-#	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
-#	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
-#	${ECHO_CMD} '/* Dummy header */' > ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
-#.endif
-
 post-configure:
 .if ${PORT_TYPE} == "winpthreads"
 	${REINPLACE_CMD} -e 's@^RCFLAGS.*$$@RCFLAGS = --preprocessor=${CROSS_TARGET}-cpp-bootstrap@' ${WRKSRC}/Makefile
 .endif
-
-#post-stage:
-#.if ${PORT_TYPE} == "headers"
-#	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_signal.h
-#	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_time.h
-#	${RM} ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/include/pthread_unistd.h
-#.elif ${PORT_TYPE} == "crt"
-#	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_signal.h
-#	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_time.h
-#	${RM} ${LOCALBASE}/${CROSS_TARGET}/include/pthread_unistd.h
-#.endif
-#.if ${PORT_TYPE} == "crt"
-#	${LN} -s ${CROSS_TARGET} ${STAGEDIR}${PREFIX}/mingw
-#	${LN} -s lib ${STAGEDIR}${PREFIX}/${CROSS_TARGET}/lib64
-#.endif
 
 .include <bsd.port.post.mk>
